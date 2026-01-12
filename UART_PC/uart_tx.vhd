@@ -1,77 +1,74 @@
-library ieee;
-use ieee.numeric_std.all;
-use ieee.std_logic_1164.all;
+LIBRARY ieee;
+USE ieee.numeric_std.ALL;
+USE ieee.std_logic_1164.ALL;
 
-entity uart_tx is
-		port (
-				bclk			:in 		std_logic;
-				data_in		:in 		std_logic_vector(7 downto 0);
-				data_rdy		:in		std_logic;
-				tx				:out 		std_logic
-		);
+ENTITY uart_tx IS
+	PORT (
+		bclk : IN std_logic;
+		data_in : IN std_logic_vector(7 DOWNTO 0);
+		data_rdy : IN std_logic;
+		tx : OUT std_logic
+	);
 
-end uart_tx;
+END uart_tx;
+ARCHITECTURE behav OF uart_tx IS
 
+	TYPE uart_state IS (IDLE, START, DATA, STOP);
 
-architecture behav of uart_tx is
-
-	type uart_state is (IDLE, START, DATA, STOP);
-
-	signal tx_out				: std_logic;
-	
-	begin
+	SIGNAL tx_out : std_logic;
+ 
+BEGIN
 	-- this process implements the state machine for the transmitter
-	process (bclk, data_rdy) is
-		
-		variable tx_data							: std_logic_vector (7 downto 0);
-		variable new_data							: std_logic;
-		variable tx_current_state				: uart_state;
-		variable tx_next_state					: uart_state;
-		variable clk_counter						: integer range 0 to 15 := 0;
-		variable data_counter					: integer range 0 to 7;
+	PROCESS (bclk, data_rdy) IS
+ 
+	VARIABLE tx_data : std_logic_vector (7 DOWNTO 0);
+	VARIABLE new_data : std_logic;
+	VARIABLE tx_current_state : uart_state;
+	VARIABLE tx_next_state : uart_state;
+	VARIABLE clk_counter : INTEGER RANGE 0 TO 15 := 0;
+	VARIABLE data_counter : INTEGER RANGE 0 TO 7;
 
-		
-		begin
-				
-				if rising_edge(bclk) then
-						if (data_rdy = '1') then
-							tx_data := data_in;
-							new_data := '1';
-						end if;
-				
-						if clk_counter = 15 then
-							clk_counter := 0;
-							case tx_current_state is
-								when IDLE =>
-										tx_out <= '1';
-										if new_data = '1' then
-											tx_next_state := START;
-											new_data := '0';
-										end if;
-								when START =>
-										tx_out <= '0';
-										tx_next_state := DATA;
-										data_counter := 0;
-								when DATA =>
-										tx_out <= tx_data(data_counter);
-										if data_counter = 7 then
-											data_counter := 0;
-											tx_next_state := STOP;
-										else
-											data_counter := data_counter + 1;
-										end if;
-								when STOP =>
-										tx_out <= '1';
-										tx_next_state := IDLE;
-								when others =>
-							end case;
-						else
-								clk_counter := clk_counter + 1;
-						end if;
-						
-				end if;
-				
-			tx_current_state := tx_next_state;	
-		end process;
-		tx <= tx_out;
-	end behav;
+ 
+	BEGIN
+		IF rising_edge(bclk) THEN
+			IF (data_rdy = '1') THEN
+				tx_data := data_in;
+				new_data := '1';
+			END IF;
+ 
+			IF clk_counter = 15 THEN
+				clk_counter := 0;
+				CASE tx_current_state IS
+					WHEN IDLE => 
+						tx_out <= '1';
+						IF new_data = '1' THEN
+							tx_next_state := START;
+							new_data := '0';
+						END IF;
+					WHEN START => 
+						tx_out <= '0';
+						tx_next_state := DATA;
+						data_counter := 0;
+					WHEN DATA => 
+						tx_out <= tx_data(data_counter);
+						IF data_counter = 7 THEN
+							data_counter := 0;
+							tx_next_state := STOP;
+						ELSE
+							data_counter := data_counter + 1;
+						END IF;
+					WHEN STOP => 
+						tx_out <= '1';
+						tx_next_state := IDLE;
+					WHEN OTHERS => 
+				END CASE;
+			ELSE
+				clk_counter := clk_counter + 1;
+			END IF;
+ 
+		END IF;
+ 
+		tx_current_state := tx_next_state; 
+	END PROCESS;
+	tx <= tx_out;
+END behav;
