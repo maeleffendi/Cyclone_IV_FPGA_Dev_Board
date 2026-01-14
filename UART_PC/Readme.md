@@ -10,7 +10,7 @@ Uart_tx is the transmitter block. Similar to uart_rx, it receives baud clock and
 The Cyclone IV Development Board is fitted with a CH340N USB-to-UART transceiver which is used to interface the FPGA to the PC over USB. 
 ![UART CH340](uart_ch340N.png)
 TeraTerm is used as a terminal to send one character (8-bit) to the FPGA and when a push button is pressed on the development board, the character is sent back to the terminal. Here, we send the ASCII symbol  “0” which has the binary value of 00110000. It is sent back by the FPGA as long as the button is pressed.
-![UART Terminal](uart_terminal.png)
+![UART Terminal](UART_TERMINAL.png)
 The scope shots below show the TX and RX signals at the output of the FPGA pins.
-![UART Rx Scope](uart_rx_scope.png)
-![UART Tx Scope](uart_tx_scope.png)
+![UART Rx Scope](UART_RX_SCOPE.png)
+![UART Tx Scope](UART_TX_SCOPE.png)
