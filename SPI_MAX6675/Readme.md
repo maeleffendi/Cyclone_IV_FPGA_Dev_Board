@@ -1,7 +1,7 @@
 This project demonstrates SPI interface implementation to temperature sensor MAX6675. A breakout board of MAX6675 was used and wired to the Cyclone IV development board.
-
+<p align="center">
 <img src="images/max6675.png" width=30% height=30%> <img src="images/max6675_breakout.png" width=30% height=30%>
-
+</p>
 
 MAX6675 is a cold-junction compensated K-type thermocouple to digital converter. It digitizes the signal from a type-K thermocouple and outputs a 12-bit voltage (uV) over the SPI interface. The Serial Interface Protcol and the 16-bit sensor output is shown below.
 
