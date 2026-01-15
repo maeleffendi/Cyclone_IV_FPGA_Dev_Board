@@ -15,8 +15,8 @@ A block diagram of the HDL implementation is shown below. A PLL is used to deriv
 
 ![SPI State Machine](images/spi_sm.png)
 
-The resolution of MAX6675 is 10.25uV/LSB or 41uV/<sup>O</sup>C. That is 0.25<sup>O</sup>C/LSB or 250mC/LSB. Therefore, for ease of implementation, the 12-bit ADC output is multiplied by 250 to get a millidegree Celsius temperature reading. This is then divided by 256 to convert it to an 8-bit value that can be easily trasmitted over the UART interface to the PC. Refer to UART_PC for information about the UART implementation.
-This for sure limits the readable range of MAX6675 to 0-65<sup>O</sup>C. However, this is sufficient for the purpose of this project which is focused on SPI interface implementation.
+The resolution of MAX6675 is 10.25uV/LSB or 41uV/<sup>o</sup>C. That is 0.25<sup>o</sup>C/LSB or 250mC/LSB. Therefore, for ease of implementation, the 12-bit ADC output is multiplied by 250 to get a millidegree Celsius temperature reading. This is then divided by 256 to convert it to an 8-bit value that can be easily trasmitted over the UART interface to the PC. Refer to UART_PC for information about the UART implementation.
+This for sure limits the readable range of MAX6675 to 0-65<sup>o</sup>C. However, this is sufficient for the purpose of this project which is focused on SPI interface implementation.
 
 
 On the PC side, SerialPlot was used to plot the data recieved from the FPGA over UART, where the recieved 8-bit value is gained by 0.256 to get the temperature reading in degrees Celsius. The plot below shows temperature readings of the thermocouple as it is dipped into a glass of hot water.
