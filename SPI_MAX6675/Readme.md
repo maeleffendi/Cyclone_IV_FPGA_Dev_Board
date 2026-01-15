@@ -19,7 +19,7 @@ The resolution of MAX6675 is 10.25uV/LSB or 41uV/C. That is 0.25C/LSB or 250mC/L
 This for sure limits the readable range of MAX6675 to 0-65C. However, this is sufficient for the purpose of this project which is focused on SPI interface implementation.
 
 
-On the PC side, SerialPlot was used to plot the data recieved from the FPGA over UART, where the recieved 8-bit value is gained by 0.256 to get the temperature reading in degrees Celsius.
+On the PC side, SerialPlot was used to plot the data recieved from the FPGA over UART, where the recieved 8-bit value is gained by 0.256 to get the temperature reading in degrees Celsius. The plot below shows temperature readings of the thermocouple as it is dipped into a glass of hot water.
 
 <p align="center">
 <img src="images/max6675_plot.png" width=60% height=60%>
