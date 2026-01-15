@@ -22,7 +22,7 @@ This for sure limits the readable range of MAX6675 to 0-65C. However, this is su
 On the PC side, SerialPlot was used to plot the data recieved from the FPGA over UART, where the recieved 8-bit value is gained by 0.256 to get the temperature reading in degrees Celsius.
 
 <p align="center">
-<img src="images/max6675_plot.png" width=40% height=40%>
+<img src="images/max6675_plot.png" width=60% height=60%>
 </p>
 
 
